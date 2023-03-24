@@ -1,0 +1,42 @@
+
+.loader-container {
+    position: absolute;
+    z-index: 100;
+    min-height: 100%;
+    background: black;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loader {
+    position: relative;
+    width: 67px;
+    height: 67px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: rotate(45deg);
+    overflow: hidden; 
+  }
+  .loader:after{
+    content: '';
+    position: absolute;
+    inset: 8px;
+    margin: auto;
+    background: yellow;
+  }
+  .loader:before{
+    content: '';
+    position: absolute;
+    inset: -15px;
+    margin: auto;
+    background: #4FC87A;
+    animation: diamondLoader 2s linear infinite;
+  }
+  @keyframes diamondLoader {
+    0%  ,10% {
+      transform: translate(-64px , -64px) rotate(-45deg)
+    }
+    90% , 100% {
+      transform: translate(0px , 0px) rotate(-45deg)
+    }
+  }
