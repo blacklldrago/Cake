@@ -1,77 +1,75 @@
 import React from 'react'
 import './Login.css'
-import CakeIcon from '@mui/icons-material/Cake';
-
-import { Button, Checkbox, Form, Input } from 'antd';
+import logo  from '../../assets/welcome2.png'
+import {Button, Form, Input, message } from 'antd';
 import { axiosLogin, saveToken } from '../../utils/axiosRequest';
 import { useNavigate } from 'react-router-dom';
-const Login = () => {
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
+const Login = () => {
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const onFinish = async(values) => {
-    console.log('Success:', values);
-      try {
-          const{data} = await axiosLogin.post("login",values)
-          saveToken(data.accessToken)
-          navigate("/")
-
-    } catch (error) {
+    try {
+      
+      const{data} = await axiosLogin.post("Auth/Login",values)
+      if(data.code != 200){
+        message.error(data.message)
+        return 
+      }
+      saveToken(data.data.token)
+      sessionStorage.setItem("isLogged", JSON.stringify(true)); 
+      navigate("/users") 
+      message.success(data.message)
+      form.resetFields();
+    }
+    catch (error) {
+      form.resetFields();
     } 
     
-    // form.resetFields();
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
   return (
-    <div className="main ">
+    <div className="main">
         <div className="login  text-center">
-          <h1 className='pt-[50px] text-[40px] font-[700] text-[yellow]'><CakeIcon sx={{fontSize:40}}/>&nbsp;Log In&nbsp;<CakeIcon sx={{fontSize:40}}/></h1>
+          <div className='flex justify-center pt-[40px]'>
+            <img className='h-[90px]' src={logo} alt="" />
+          </div>
         <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        form = {form}
-        wrapperCol={{
-          span: 16,
-        }}
-        style={{
-          maxWidth: 400,
-        }}
+         name="normal_login"
+         className="login-form" 
         initialValues={{
           remember: true,
         }}
+        form = {form}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
       >
         <Form.Item
-          label = { <label style={{color:"Yellow"}}>Email</label>}
-          name="email"
+          name="userName"
           className='pt-[50px]'
           rules={[
             {
               required: true,
-              message: 'Please input your Email!',
+              message: 'Please input your Username!',
             },
           ]}
         >
-          <Input/>
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
 
         <Form.Item
-          label={ <label style={{color:"Yellow"}}>Password</label>}
           name="password"
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: 'Please input your Password!',
             },
           ]}
         >
-          <Input.Password />
+                  <Input.Password
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
         </Form.Item>
 
         <Form.Item
@@ -80,9 +78,9 @@ const Login = () => {
             span: 16,
           }}
         >
-          <Button className='bg-[yellow]' htmlType="submit">
-            Submit
-          </Button>
+        <Button  htmlType="submit" className="login-form-button bg-[#FF9700] text-[white]">
+          Log in
+        </Button>
         </Form.Item>
       </Form>
         </div>

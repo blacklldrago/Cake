@@ -11,7 +11,7 @@ const axiosRequest = axios.create({
 
 axiosRequest.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = sessionStorage.getItem("access_token");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -35,7 +35,7 @@ function getToken() {
 function destroyToken() {
   sessionStorage.removeItem("access_token");
   sessionStorage.removeItem("isLogged");
-    // sessionStorage.removeItem("refresh_token");
+  sessionStorage.removeItem("refresh_token");
 }
 
-export { axiosRequest,axiosLogin, saveToken, destroyToken, getToken};
+export {axiosRequest,axiosLogin, saveToken, destroyToken, getToken};

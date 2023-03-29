@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Button } from '@mui/material';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,7 +27,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({text1, text2, text3, text4, text5, text6, text7, img}) {
+export default function RecipeReviewCard({text1, text2, text3, text4, text5, text6, img}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -34,7 +35,7 @@ export default function RecipeReviewCard({text1, text2, text3, text4, text5, tex
   };
 
   return (
-    <Card sx={{ width:350 , marginBottom:"20px"}}>
+    <Card sx={{ width:350 , marginBottom:"20px", display:"block"}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -49,12 +50,6 @@ export default function RecipeReviewCard({text1, text2, text3, text4, text5, tex
         title={text1}
         subheader={text2}
       />
-      <CardMedia
-        component="img"
-        className='h-[250px]'
-        image = {img}
-        alt="Paella dish"
-      />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
         {text3}
@@ -66,6 +61,9 @@ export default function RecipeReviewCard({text1, text2, text3, text4, text5, tex
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
+        <Typography paragraph>
+        {text5}
+        </Typography>
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -76,12 +74,11 @@ export default function RecipeReviewCard({text1, text2, text3, text4, text5, tex
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
+
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>{text4}</Typography>
-          <Typography paragraph>
-          {text5}
-          </Typography>
+          
         </CardContent>
       </Collapse>
     </Card>
