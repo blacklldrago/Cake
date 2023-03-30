@@ -11,32 +11,37 @@
   }
   .loader {
     position: relative;
-    width: 67px;
-    height: 67px;
-    background-color: rgba(0, 0, 0, 0.5);
-    transform: rotate(45deg);
-    overflow: hidden; 
+    width: 164px;
+    height: 164px;
   }
-  .loader:after{
+  .loader::before , .loader::after {
     content: '';
     position: absolute;
-    inset: 8px;
-    margin: auto;
-    background: yellow;
-  }
-  .loader:before{
-    content: '';
-    position: absolute;
-    inset: -15px;
-    margin: auto;
-    background: #4FC87A;
-    animation: diamondLoader 2s linear infinite;
-  }
-  @keyframes diamondLoader {
-    0%  ,10% {
-      transform: translate(-64px , -64px) rotate(-45deg)
-    }
-    90% , 100% {
-      transform: translate(0px , 0px) rotate(-45deg)
-    }
-  }
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    left: 50%;
+    top: 50%;
+    animation: rotate 1s ease-in infinite;
+}
+.loader::after {
+  width: 20px;
+  height: 20px;
+  background-color: #FF3D00;
+  animation: rotate 1s ease-in infinite, moveY 1s ease-in infinite ;
+}
+
+@keyframes moveY {
+  0% , 100% {top: 10%}
+  45% , 55% {top: 59%}
+  60% {top: 40%}
+}
+@keyframes rotate {
+  0% { transform: translate(-50%, -100%) rotate(0deg) scale(1 , 1)}
+  25%{ transform: translate(-50%, 0%) rotate(180deg) scale(1 , 1)}
+  45% , 55%{ transform: translate(-50%, 100%) rotate(180deg) scale(3 , 0.5)}
+  60%{ transform: translate(-50%, 100%) rotate(180deg) scale(1, 1)}
+  75%{ transform: translate(-50%, 0%) rotate(270deg) scale(1 , 1)}
+  100%{ transform: translate(-50%, -100%) rotate(360deg) scale(1 , 1)}
+}
+    

@@ -58,7 +58,7 @@ const Categories = () => {
               onClick={() => {
                 setEditModal(true);
                 setId(id);
-                formEdit.setFieldValue("categoryName", row.categoryName);
+                formEdit.setFieldValue("categoryName", row.categoryName+"$");
                 formEdit.setFieldValue("shortDesc", row.shortDesc);
                 formEdit.setFieldValue("fullDesc", row.fullDesc);
               }}
@@ -89,8 +89,17 @@ const Categories = () => {
         return;
       }
       setLoader(false)
-      
-      setCategories(data.data);
+      let ans = data.data.filter((e)=>{
+        if(e.categoryName.includes("$")){
+          return e
+        }
+      })
+      for(let i = 0; i < ans.length; i++){
+        if(ans[i].categoryName.includes("$")){
+          ans[i].categoryName = ans[i].categoryName.replace("$", "")
+        }
+      }
+      setCategories(ans);
     } catch (e) {
       setLoader(false)
     }
@@ -114,7 +123,6 @@ const Categories = () => {
 
     }
   };
-
   const editCategory = async (values) => {
     setEditModal(false);
     values.id = id;
@@ -125,6 +133,7 @@ const Categories = () => {
         `Category/UpdateCategory`,
         values
       );
+      
       getCategories();
       setLoader(false)
     } catch (error) {}
@@ -140,6 +149,9 @@ const Categories = () => {
       setLoader(false)
     }
   };
+
+
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -168,19 +180,13 @@ const Categories = () => {
       >
         <Form
           form={formAdd}
-          name="basic"
           layout="vertical"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
           style={{
-            maxWidth: 600,
+            width: 370,
+            margin:"auto"
           }}
           initialValues={{
-            remember: true,
+            categoryName : "$"
           }}
           onFinish={addCategory}
           autoComplete="off"
@@ -256,16 +262,10 @@ const Categories = () => {
       >
         <Form
           form={formEdit}
-          name="basic"
           layout="vertical"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
           style={{
-            maxWidth: 600,
+            width: 370,
+            margin:"auto"
           }}
           initialValues={{
             remember: true,
@@ -324,8 +324,7 @@ const Categories = () => {
           </Form.Item>
         </Form>
       </Modal>
-      <SnackbarProvider />
-      
+      <SnackbarProvider />   
       </Container>
       </div>
       
