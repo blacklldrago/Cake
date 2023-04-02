@@ -38,15 +38,17 @@ const Layout = () => {
   };
   return (
     <div>
-      <div className="navbar pt-[15px] ">
+      <div className="navbar pt-[15px]">
         <Container maxWidth="xlg">
           <div className="flex justify-around w-[90%] m-auto  ">
             <div className="pt-[4px]">
+              <Link to={"/dashboard"}>
               <img src={logo} alt="" />
+              </Link>
             </div>
             <div className="flex gap-[30px] pt-[10px]">
               <div>
-                <Link to={"/"}>
+                <Link to={"/dashboard/users"}>
                   <h1 className="text-[18px] text-[black] hover:text-[#FEB302] font-[600] pt-[6px]">
                     <GroupIcon />
                     &nbsp;Users
@@ -54,7 +56,7 @@ const Layout = () => {
                 </Link>
               </div>
               <div>
-                <Link to={"/category"}>
+                <Link to={"/dashboard/category"}>
                   <h1 className="text-[18px] text-[black] hover:text-[#FEB302] font-[600] pt-[6px]">
                     <CategoryIcon />
                     &nbsp;Category
@@ -62,7 +64,7 @@ const Layout = () => {
                 </Link>
               </div>
               <div>
-                <Link to={"/product"}>
+                <Link to={"/dashboard/product"}>
                   <h1 className="text-[18px] text-[black] hover:text-[#FEB302] font-[600] pt-[6px]">
                     <ProductionQuantityLimitsIcon />
                     &nbsp;Product
@@ -70,7 +72,7 @@ const Layout = () => {
                 </Link>
               </div>
               <div>
-                <Link to={"/order"}>
+                <Link to={"/dashboard/order"}>
                   <h1 className="text-[18px] text-[black] hover:text-[#FEB302] font-[600] pt-[6px]">
                     <BookmarkBorderIcon />
                     Order

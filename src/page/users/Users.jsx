@@ -71,7 +71,6 @@ const Users = () => {
             dataSource={users}
             loading={loader}
             columns={columns}
-            pagination={false}
           />
         </Container>
       </div>

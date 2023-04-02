@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal, Table, message } from "antd";
 import { Container, IconButton, TextField } from "@mui/material";
 import { AddCircle, Delete, Edit } from "@mui/icons-material";
-import { useForm } from "antd/es/form/Form";
+
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import { axiosRequest } from "../../../utils/axiosRequest";
 import Loader from "../../../components/loader/Loader";
+import { useForm } from "antd/es/form/Form";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -58,7 +59,7 @@ const Categories = () => {
               onClick={() => {
                 setEditModal(true);
                 setId(id);
-                formEdit.setFieldValue("categoryName", row.categoryName+"$");
+                formEdit.setFieldValue("categoryName", row.categoryName);
                 formEdit.setFieldValue("shortDesc", row.shortDesc);
                 formEdit.setFieldValue("fullDesc", row.fullDesc);
               }}
@@ -108,6 +109,7 @@ const Categories = () => {
   const addCategory = async (values) => {
     setAddModal(false);
     setLoader(true)
+    values.categoryName+="$";
     try {
       const { data } = await axiosRequest.post("Category/AddCategory", values);
       if (data.code !== 200) {
@@ -126,6 +128,7 @@ const Categories = () => {
   const editCategory = async (values) => {
     setEditModal(false);
     values.id = id;
+    values.categoryName+="$";
     setLoader(false)
 
     try {
@@ -186,7 +189,7 @@ const Categories = () => {
             margin:"auto"
           }}
           initialValues={{
-            categoryName : "$"
+            remember : true,
           }}
           onFinish={addCategory}
           autoComplete="off"

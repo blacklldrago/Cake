@@ -4,6 +4,7 @@ import { getToken } from "../../../utils/axiosRequest";
 
 import SendIcon from '@mui/icons-material/Send';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Edit } from "@mui/icons-material";
 
 const Profile = () => {
   const { iss, iat, exp, jti, nbf, aud, sub, ...user } = getToken();
@@ -42,7 +43,7 @@ const Profile = () => {
                     </div>
                 );
                 })}
-                <Button className = "w-[180px] h-[40px] text-[20px] mt-[20px]">Send&nbsp;<SendIcon/></Button>
+                <Button className = "w-[180px] h-[40px] text-[20px] mt-[20px]">Send&nbsp;<Edit/></Button>
             </form>
         </Container>
         </div>

@@ -19,7 +19,7 @@ const Login = () => {
       }
       saveToken(data.data.token)
       sessionStorage.setItem("isLogged", JSON.stringify(true)); 
-      navigate("/users") 
+      navigate("/dashboard") 
       message.success(data.message)
       form.resetFields();
     }
@@ -29,7 +29,7 @@ const Login = () => {
     
   };
   return (
-    <div className="main">
+    <div className="main bodyofLo">
         <div className="login  text-center">
           <div className='flex justify-center pt-[40px]'>
             <img className='h-[90px]' src={logo} alt="" />

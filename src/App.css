@@ -1,3 +1,34 @@
 body{
-    background-color: #F6F9FF;
+background-color: #F6F9FF;
+
 }
+.bodyofLo{
+    background-image: url(assets/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    padding-top: 1px;
+    height: 100vh;
+    animation: animeBackground 30s infinite;
+}
+@keyframes animeBackground {
+    0% {
+      background-image: url("assets/fruit.jpg");
+    }
+    20% {
+        background-image: url("assets/candiedF.jpg");
+    }
+    40%{
+        background-image: url("assets/watermelon.jpg");
+    }
+    60%{
+        background-image: url("assets/dried.jpg");
+    }
+    80%{
+        background-image: url("assets/berri.jpg");
+    }
+    100% {
+      background-image: url("assets/strawberry.jpeg");
+    }
+  }

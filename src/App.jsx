@@ -2,33 +2,41 @@ import { Suspense, useEffect } from "react";
 import { Route,Routes, useLocation, useNavigate} from "react-router-dom";
 import "./App.css";
 import Loader from "./components/loader/Loader";
-import { Users, Layout, Login, Order, Product, Category, Profile } from "./routes/Routes";
+import { Users, Layout, Login, Order, Product, Category, Profile, Dashboard } from "./routes/Routes";
 
 function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   useEffect(() => {
     if (
-      ( pathname == "/users" || pathname == "/order" || pathname == "/product") &&
+      
       !sessionStorage.getItem("isLogged")
     ) {
       navigate("/");
     }
     if (pathname == "/" && sessionStorage.getItem("isLogged")) {
-      navigate("/users");
+      navigate("/dashboard");
     }
   }, [pathname]);
   return (
     <div className="App">
       <Routes>
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <Suspense fallback={<Loader />}>
               <Layout />
             </Suspense>
           }
         >
+          <Route
+            path="/dashboard"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Dashboard/>
+              </Suspense>
+            }
+          />
           <Route
             path="users"
             element={
@@ -71,7 +79,7 @@ function App() {
           />
         </Route>
         <Route
-          index
+           path="/"
           element={
             <Suspense fallback={<Loader />}>
               <Login />
